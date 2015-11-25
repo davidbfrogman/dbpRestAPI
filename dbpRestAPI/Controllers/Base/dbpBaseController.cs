@@ -14,7 +14,6 @@ namespace dbpRestAPI.Controllers.Base
         public IDocumentSession DocumentSession { get; set; }
         protected override void Initialize(HttpControllerContext controllerContext)
         {
-            RavenDbConfig.Initialize();
             this.DocumentSession = RavenDbConfig.Store.OpenSession();
             base.Initialize(controllerContext);
         }

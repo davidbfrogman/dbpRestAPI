@@ -8,6 +8,7 @@ namespace dbpRestAPI
     using Raven.Client;
     using Raven.Client.Embedded;
     using Raven.Client.Indexes;
+    using Raven.Database.Server;
     using System.Reflection;
 
     public class RavenDbConfig
@@ -18,22 +19,34 @@ namespace dbpRestAPI
             get
             {
                 if (_store == null)
-                    throw new InvalidOperationException(
-                    "IDocumentStore has not been initialized.");
+                {
+                    Initialize();
+                }
                 return _store;
             }
         }
 
         public static IDocumentStore Initialize()
         {
+            
             if (_store == null)
             {
                 _store = new EmbeddableDocumentStore
                 {
                     ConnectionStringName = "RavenDB"
+                    //,UseEmbeddedHttpServer = true
                 };
                 _store.Conventions.IdentityPartsSeparator = "-";
-                _store.Initialize();
+                try
+                {
+                    NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
+                    _store.Initialize();
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.ToString());
+                }
+
                 IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
                 return _store;
             }

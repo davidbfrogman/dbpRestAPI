@@ -21,7 +21,7 @@ namespace dbpRestAPI
                 defaults: new { id = RouteParameter.Optional }
             );
             //Enabling cors so I can request stuff from my ui app
-            config.EnableCors(new EnableCorsAttribute("http://localhost:9000,http://dev.dbp.com", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             formatter.SerializerSettings.ContractResolver =

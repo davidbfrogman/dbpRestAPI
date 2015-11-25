@@ -43,7 +43,7 @@ namespace dbpRestAPI.Controllers
             //    DocumentSession.SaveChanges();
             //}
 
-            return DocumentSession.Query<PortfolioBook>();
+            return DocumentSession.Query<PortfolioBook>().OrderBy(books => books.TrimmedId);
         }
 
         // GET: api/PortfolioBooks/5
@@ -76,7 +76,6 @@ namespace dbpRestAPI.Controllers
             try
             {
                 DocumentSession.Store(portfolioBook, Id);
-                DocumentSession.SaveChanges();
                 return StatusCode(HttpStatusCode.Created);
             }
             catch (Exception ex)
@@ -96,7 +95,6 @@ namespace dbpRestAPI.Controllers
             }
 
             DocumentSession.Store(portfolioBook);
-            DocumentSession.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
         }
@@ -112,7 +110,6 @@ namespace dbpRestAPI.Controllers
             }
 
             DocumentSession.Delete<PortfolioBook>(portfolioBook);
-            DocumentSession.SaveChanges();
 
             return Ok(portfolioBook);
         }
