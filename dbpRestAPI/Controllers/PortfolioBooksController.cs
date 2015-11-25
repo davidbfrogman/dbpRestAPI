@@ -18,6 +18,7 @@ namespace dbpRestAPI.Controllers
         // GET: api/PortfolioBooks
         public IQueryable<PortfolioBook> GetPortfolioBooks()
         {
+
             //Adding some seed data
             //List<PortfolioBook> portfolios = new List<PortfolioBook>() {
             //    new PortfolioBook()
