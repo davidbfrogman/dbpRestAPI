@@ -7,7 +7,7 @@ namespace dbpRestAPI.Models
 {
     public class PortfolioBook
     {
-        public int id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ImageThumbnailURL { get; set; }

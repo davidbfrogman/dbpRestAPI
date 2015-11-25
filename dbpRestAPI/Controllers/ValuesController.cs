@@ -16,7 +16,7 @@ namespace dbpRestAPI.Controllers
             List<PortfolioBook> portfolios = new List<PortfolioBook>() {
                 new PortfolioBook()
                 {
-                    id = 1,
+                    Id = "1",
                     Title = "Rebecca",
                     Description = "I had a blast shooting these",
                     Order = 2
@@ -24,7 +24,7 @@ namespace dbpRestAPI.Controllers
                 },
                 new PortfolioBook()
                 {
-                    id = 2,
+                    Id = "2",
                     Title = "Liv",
                     Description = "Liv was super nice",
                     Order = 3

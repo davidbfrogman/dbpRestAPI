@@ -17,7 +17,7 @@ namespace dbpRestAPI.Controllers
             List<PortfolioBook> portfolios = new List<PortfolioBook>() {
                 new PortfolioBook()
                 {
-                    id = 1,
+                    Id = "1",
                     Title = "Rebecca",
                     Description = "I had a blast shooting these",
                     ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
@@ -26,7 +26,7 @@ namespace dbpRestAPI.Controllers
                 },
                 new PortfolioBook()
                 {
-                    id = 2,
+                    Id = "2",
                     Title = "Liv",
                     Description = "Liv was super nice",
                     ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
@@ -42,7 +42,7 @@ namespace dbpRestAPI.Controllers
         {
             return new PortfolioBook()
             {
-                id = 1,
+                Id = "1",
                 Title = "Rebecca",
                 Description = "I had a blast shooting these",
                 ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
