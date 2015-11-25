@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace dbpRestAPI
 {
@@ -19,6 +20,8 @@ namespace dbpRestAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            //Enabling cors so I can request stuff from my ui app
+            config.EnableCors(new EnableCorsAttribute("http://localhost:9000,http://dev.dbp.com", "*", "*"));
 
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             formatter.SerializerSettings.ContractResolver =

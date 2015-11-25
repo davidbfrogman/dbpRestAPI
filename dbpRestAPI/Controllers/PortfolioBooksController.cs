@@ -20,28 +20,28 @@ namespace dbpRestAPI.Controllers
         {
 
             //Adding some seed data
-            List<PortfolioBook> portfolios = new List<PortfolioBook>() {
-                new PortfolioBook()
-                {
-                    Title = "Rebecca",
-                    Description = "I had a blast shooting these",
-                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
-                    Order = 2
+            //List<PortfolioBook> portfolios = new List<PortfolioBook>() {
+            //    new PortfolioBook()
+            //    {
+            //        Title = "Rebecca",
+            //        Description = "I had a blast shooting these",
+            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+            //        Order = 2
 
-                },
-                new PortfolioBook()
-                {
-                    Title = "Liv",
-                    Description = "Liv was super nice",
-                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
-                    Order = 3
-                }
-            };
-            foreach (var book in portfolios)
-            {
-                DocumentSession.Store(book);
-                DocumentSession.SaveChanges();
-            }
+            //    },
+            //    new PortfolioBook()
+            //    {
+            //        Title = "Liv",
+            //        Description = "Liv was super nice",
+            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
+            //        Order = 3
+            //    }
+            //};
+            //foreach (var book in portfolios)
+            //{
+            //    DocumentSession.Store(book);
+            //    DocumentSession.SaveChanges();
+            //}
 
             return DocumentSession.Query<PortfolioBook>();
         }
