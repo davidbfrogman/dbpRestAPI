@@ -20,6 +20,7 @@ namespace dbpRestAPI.Controllers
                     id = 1,
                     Title = "Rebecca",
                     Description = "I had a blast shooting these",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
                     Order = 2
 
                 },
@@ -28,6 +29,7 @@ namespace dbpRestAPI.Controllers
                     id = 2,
                     Title = "Liv",
                     Description = "Liv was super nice",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
                     Order = 3
                 }
             };

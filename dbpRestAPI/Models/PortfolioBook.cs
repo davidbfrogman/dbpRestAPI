@@ -10,6 +10,9 @@ namespace dbpRestAPI.Models
         public int id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string ImageThumbnailURL { get; set; }
         public int Order { get; set; }
+        public string Category { get; set; }
+        List<PortfolioItem> Items { get; set; }
     }
 }

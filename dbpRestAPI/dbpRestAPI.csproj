@@ -178,8 +178,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\PortfolioBook.cs" />
+    <Compile Include="Models\PortfolioItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RavenDbConfig.cs" />
+    <Compile Include="Controllers\Base\RavenDbConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
