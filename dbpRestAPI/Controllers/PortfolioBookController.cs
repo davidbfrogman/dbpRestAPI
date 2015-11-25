@@ -38,17 +38,25 @@ namespace dbpRestAPI.Controllers
         }
 
         // GET: api/PortfolioBook/5
-        public string Get(int id)
+        public PortfolioBook Get(int id)
         {
-            return "value";
+            return new PortfolioBook()
+            {
+                id = 1,
+                Title = "Rebecca",
+                Description = "I had a blast shooting these",
+                ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+                Order = 2
+
+            };
         }
 
-        // POST: api/PortfolioBook
+        // POST: api/PortfolioBook adding
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/PortfolioBook/5
+        // PUT: api/PortfolioBook/5 updating
         public void Put(int id, [FromBody]string value)
         {
         }
