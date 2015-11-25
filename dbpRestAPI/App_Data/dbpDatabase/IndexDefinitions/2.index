@@ -1,5 +1,5 @@
 {
-  "IndexId": 1,
+  "IndexId": 2,
   "Name": "Auto/PortfolioBooks",
   "LockMode": "Unlock",
   "Map": "from doc in docs.PortfolioBooks\nselect new {\r\n\n}",
@@ -13,7 +13,9 @@
   "Indexes": {},
   "SortOptions": {},
   "Analyzers": {},
-  "Fields": [],
+  "Fields": [
+    "__document_id"
+  ],
   "Suggestions": {},
   "TermVectors": {},
   "SpatialIndexes": {},
