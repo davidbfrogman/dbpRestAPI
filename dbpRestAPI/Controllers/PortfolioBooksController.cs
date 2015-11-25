@@ -42,7 +42,7 @@ namespace dbpRestAPI.Controllers
             //    DocumentSession.SaveChanges();
             //}
 
-            return base.DocumentSession.Query<PortfolioBook>();
+            return DocumentSession.Query<PortfolioBook>();
         }
 
         // GET: api/PortfolioBooks/5
