@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using dbpRestAPI.Models;
 using dbpRestAPI.Controllers.Base;
+using dbpRestAPI.DataLayer;
 
 namespace dbpRestAPI.Controllers
 {
@@ -18,39 +19,38 @@ namespace dbpRestAPI.Controllers
         // GET: api/PortfolioBooks
         public IQueryable<PortfolioBook> GetPortfolioBooks()
         {
-
             //Adding some seed data
-            //List<PortfolioBook> portfolios = new List<PortfolioBook>() {
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Rebecca",
-            //        Description = "I had a blast shooting these",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
-            //        Order = 2
+            List<PortfolioBook> portfolios = new List<PortfolioBook>() {
+                new PortfolioBook()
+                {
+                    Title = "Rebecca",
+                    Description = "I had a blast shooting these",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+                    Order = 2
 
-            //    },
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Liv",
-            //        Description = "Liv was super nice",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
-            //        Order = 3
-            //    }
-            //};
-            //foreach (var book in portfolios)
-            //{
-            //    DocumentSession.Store(book);
-            //    DocumentSession.SaveChanges();
-            //}
+                },
+                new PortfolioBook()
+                {
+                    Title = "Liv",
+                    Description = "Liv was super nice",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
+                    Order = 3
+                }
+            };
+            foreach (var book in portfolios)
+            {
+                db.PorfolioBooks.Add(book);
+                db.SaveChanges();
+            }
 
-            return DocumentSession.Query<PortfolioBook>();
+            return db.PorfolioBooks.AsQueryable().OrderBy(book => book.Id);
         }
 
         // GET: api/PortfolioBooks/5
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult GetPortfolioBook(string Id)
         {
-            PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
+            PortfolioBook portfolioBook = db.PorfolioBooks.Find(Id);
             if (portfolioBook == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace dbpRestAPI.Controllers
 
         // PUT: api/PortfolioBooks/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPortfolioBook(string Id, PortfolioBook portfolioBook)
+        public IHttpActionResult PutPortfolioBook(int Id, PortfolioBook portfolioBook)
         {
             if (!ModelState.IsValid)
             {
@@ -75,8 +75,7 @@ namespace dbpRestAPI.Controllers
 
             try
             {
-                DocumentSession.Store(portfolioBook, Id);
-                DocumentSession.SaveChanges();
+                db.PorfolioBooks.Add(portfolioBook);
                 return StatusCode(HttpStatusCode.Created);
             }
             catch (Exception ex)
@@ -95,26 +94,23 @@ namespace dbpRestAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            DocumentSession.Store(portfolioBook);
-            DocumentSession.SaveChanges();
+            db.PorfolioBooks.Add(portfolioBook);
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
         }
 
         // DELETE: api/PortfolioBooks/5
         [ResponseType(typeof(PortfolioBook))]
-        public IHttpActionResult DeletePortfolioBook(string Id)
+        public IHttpActionResult DeletePortfolioBook(int Id)
         {
-            PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
-            if (portfolioBook == null)
+            var item = db.PorfolioBooks.Where(t => t.Id == Id).FirstOrDefault();
+            if (item != null)
             {
-                return NotFound();
+                db.PorfolioBooks.Remove(item);
+                db.SaveChanges();
             }
-
-            DocumentSession.Delete<PortfolioBook>(portfolioBook);
-            DocumentSession.SaveChanges();
-
-            return Ok(portfolioBook);
+            return StatusCode(HttpStatusCode.Accepted);
         }
     }
 }

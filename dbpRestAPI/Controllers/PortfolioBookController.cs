@@ -17,7 +17,6 @@ namespace dbpRestAPI.Controllers
             List<PortfolioBook> portfolios = new List<PortfolioBook>() {
                 new PortfolioBook()
                 {
-                    Id = "1",
                     Title = "Rebecca",
                     Description = "I had a blast shooting these",
                     ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
@@ -26,7 +25,6 @@ namespace dbpRestAPI.Controllers
                 },
                 new PortfolioBook()
                 {
-                    Id = "2",
                     Title = "Liv",
                     Description = "Liv was super nice",
                     ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
@@ -40,15 +38,7 @@ namespace dbpRestAPI.Controllers
         // GET: api/PortfolioBook/5
         public PortfolioBook Get(int id)
         {
-            return new PortfolioBook()
-            {
-                Id = "1",
-                Title = "Rebecca",
-                Description = "I had a blast shooting these",
-                ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
-                Order = 2
-
-            };
+            return new PortfolioBook();
         }
 
         // POST: api/PortfolioBook adding
