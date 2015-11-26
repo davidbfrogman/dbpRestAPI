@@ -1,5 +1,4 @@
-﻿using Raven.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +12,6 @@ namespace dbpRestAPI.Controllers.Base
     public class dbpBaseController : ApiController
     {
         protected dbpDatabaseContext db = new dbpDatabaseContext();
-
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);

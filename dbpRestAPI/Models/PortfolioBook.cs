@@ -18,5 +18,11 @@ namespace dbpRestAPI.Models
         public string Category { get; set; }
         public bool IsActive { get; set; }
         List<PortfolioItem> Items { get; set; }
+        public int TrimmedId {
+            get
+            {
+                return Convert.ToInt32(this.Id.Replace("PortfolioBooks-", ""));
+            }
+        }
     }
 }

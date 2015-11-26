@@ -17,7 +17,7 @@ namespace dbpRestAPI.Controllers
     public class PortfolioBooksController : dbpBaseController
     {
         // GET: api/PortfolioBooks
-        public IQueryable<PortfolioBook> GetPortfolioBooks()
+        public List<PortfolioBook> GetPortfolioBooks()
         {
             //Adding some seed data
             List<PortfolioBook> portfolios = new List<PortfolioBook>() {
@@ -37,6 +37,7 @@ namespace dbpRestAPI.Controllers
                     Order = 3
                 }
             };
+
             foreach (var book in portfolios)
             {
                 db.PorfolioBooks.Add(book);
@@ -48,9 +49,10 @@ namespace dbpRestAPI.Controllers
 
         // GET: api/PortfolioBooks/5
         [ResponseType(typeof(PortfolioBook))]
-        public IHttpActionResult GetPortfolioBook(string Id)
+        public IHttpActionResult GetPortfolioBook(int Id)
         {
             PortfolioBook portfolioBook = db.PorfolioBooks.Find(Id);
+
             if (portfolioBook == null)
             {
                 return NotFound();
@@ -76,6 +78,7 @@ namespace dbpRestAPI.Controllers
             try
             {
                 db.PorfolioBooks.Add(portfolioBook);
+
                 return StatusCode(HttpStatusCode.Created);
             }
             catch (Exception ex)
