@@ -16,41 +16,52 @@ namespace dbpRestAPI.Controllers
     public class PortfolioBooksController : dbpBaseController
     {
         // GET: api/PortfolioBooks
-        public IQueryable<PortfolioBook> GetPortfolioBooks()
+        public List<PortfolioBook> GetPortfolioBooks()
         {
 
             //Adding some seed data
-            //List<PortfolioBook> portfolios = new List<PortfolioBook>() {
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Rebecca",
-            //        Description = "I had a blast shooting these",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
-            //        Order = 2
+            List<PortfolioBook> portfolios = new List<PortfolioBook>() {
+                new PortfolioBook()
+                {
+                    Title = "Rebecca",
+                    Description = "I had a blast shooting these",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+                    Order = 2
 
-            //    },
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Liv",
-            //        Description = "Liv was super nice",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
-            //        Order = 3
-            //    }
-            //};
+                },
+                new PortfolioBook()
+                {
+                    Title = "Liv",
+                    Description = "Liv was super nice",
+                    ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
+                    Order = 3
+                }
+            };
             //foreach (var book in portfolios)
             //{
             //    DocumentSession.Store(book);
             //    DocumentSession.SaveChanges();
             //}
 
-            return DocumentSession.Query<PortfolioBook>().OrderBy(books => books.TrimmedId);
+            //return DocumentSession.Query<PortfolioBook>().OrderBy(books => books.id);
+
+            return portfolios;
         }
 
         // GET: api/PortfolioBooks/5
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult GetPortfolioBook(string Id)
         {
-            PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
+            //PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
+            PortfolioBook portfolioBook = new PortfolioBook()
+            {
+                Title = "Rebecca",
+                Description = "I had a blast shooting these",
+                ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+                Order = 2
+
+            };
+
             if (portfolioBook == null)
             {
                 return NotFound();
@@ -75,7 +86,7 @@ namespace dbpRestAPI.Controllers
 
             try
             {
-                DocumentSession.Store(portfolioBook, Id);
+                //DocumentSession.Store(portfolioBook, Id);
                 return StatusCode(HttpStatusCode.Created);
             }
             catch (Exception ex)
@@ -94,7 +105,7 @@ namespace dbpRestAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            DocumentSession.Store(portfolioBook);
+            //DocumentSession.Store(portfolioBook);
 
             return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
         }
@@ -103,13 +114,21 @@ namespace dbpRestAPI.Controllers
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult DeletePortfolioBook(string Id)
         {
-            PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
+            //PortfolioBook portfolioBook = DocumentSession.Load<PortfolioBook>(Id);
+            PortfolioBook portfolioBook = new PortfolioBook()
+            {
+                Title = "Rebecca",
+                Description = "I had a blast shooting these",
+                ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
+                Order = 2
+
+            };
             if (portfolioBook == null)
             {
                 return NotFound();
             }
 
-            DocumentSession.Delete<PortfolioBook>(portfolioBook);
+            //DocumentSession.Delete<PortfolioBook>(portfolioBook);
 
             return Ok(portfolioBook);
         }
