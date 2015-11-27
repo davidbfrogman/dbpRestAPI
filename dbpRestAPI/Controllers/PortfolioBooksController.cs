@@ -17,7 +17,7 @@ namespace dbpRestAPI.Controllers
     public class PortfolioBooksController : dbpBaseController
     {
         // GET: api/PortfolioBooks
-        public List<PortfolioBook> GetPortfolioBooks()
+        public IQueryable<PortfolioBook> GetPortfolioBooks()
         {
             //Adding some seed data
             List<PortfolioBook> portfolios = new List<PortfolioBook>() {
@@ -40,18 +40,17 @@ namespace dbpRestAPI.Controllers
 
             foreach (var book in portfolios)
             {
-                db.PorfolioBooks.Add(book);
-                db.SaveChanges();
+                db.PortfolioBooks.Add(book);
             }
 
-            return db.PorfolioBooks.AsQueryable().OrderBy(book => book.Id);
+            return db.PortfolioBooks.OrderBy(book => book.Id);
         }
 
         // GET: api/PortfolioBooks/5
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult GetPortfolioBook(int Id)
         {
-            PortfolioBook portfolioBook = db.PorfolioBooks.Find(Id);
+            PortfolioBook portfolioBook = db.PortfolioBooks.Find(Id);
 
             if (portfolioBook == null)
             {
@@ -61,7 +60,7 @@ namespace dbpRestAPI.Controllers
             return Ok(portfolioBook);
         }
 
-        // PUT: api/PortfolioBooks/5
+        // PUT: api/PortfolioBooks/5 updating
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPortfolioBook(int Id, PortfolioBook portfolioBook)
         {
@@ -77,9 +76,10 @@ namespace dbpRestAPI.Controllers
 
             try
             {
-                db.PorfolioBooks.Add(portfolioBook);
+                db.PortfolioBooks.Attach(portfolioBook);
+                db.Entry(portfolioBook).State = EntityState.Modified;
 
-                return StatusCode(HttpStatusCode.Created);
+                return StatusCode(HttpStatusCode.Accepted);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace dbpRestAPI.Controllers
             }
         }
 
-        // POST: api/PortfolioBooks
+        // POST: api/PortfolioBooks adding
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult PostPortfolioBook(PortfolioBook portfolioBook)
         {
@@ -97,8 +97,7 @@ namespace dbpRestAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.PorfolioBooks.Add(portfolioBook);
-            db.SaveChanges();
+            db.PortfolioBooks.Add(portfolioBook);
 
             return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
         }
@@ -107,11 +106,10 @@ namespace dbpRestAPI.Controllers
         [ResponseType(typeof(PortfolioBook))]
         public IHttpActionResult DeletePortfolioBook(int Id)
         {
-            var item = db.PorfolioBooks.Where(t => t.Id == Id).FirstOrDefault();
+            var item = db.PortfolioBooks.Where(t => t.Id == Id).FirstOrDefault();
             if (item != null)
             {
-                db.PorfolioBooks.Remove(item);
-                db.SaveChanges();
+                db.PortfolioBooks.Remove(item);
             }
             return StatusCode(HttpStatusCode.Accepted);
         }
