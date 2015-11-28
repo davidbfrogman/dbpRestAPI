@@ -89,7 +89,31 @@ namespace dbpRestAPI.Controllers
             {
                 db.PortfolioBooks.Attach(portfolioBook);
                 db.Entry(portfolioBook).State = EntityState.Modified;
+                db.SaveChanges();
+                db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
 
+                List<PortfolioItem> tempPortfolioItems = new List<PortfolioItem>();
+                foreach (var item in portfolioBook.Items)
+                {
+                    tempPortfolioItems.Add(item);
+                }
+
+                foreach (var item in tempPortfolioItems)
+                {
+                    var portItemToDelete = db.PortfolioItems.Where(t => t.Id == item.Id).FirstOrDefault();
+                    if (portItemToDelete != null)
+                    {
+                        //update case
+                        db.PortfolioItems.Attach(item);
+                        db.Entry(portItemToDelete).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        //adding
+                        db.PortfolioItems.Add(item);
+                    }
+                }
+                db.SaveChanges();
                 return StatusCode(HttpStatusCode.Accepted);
             }
             catch (Exception ex)
@@ -109,6 +133,7 @@ namespace dbpRestAPI.Controllers
             }
 
             db.PortfolioBooks.Add(portfolioBook);
+            db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
 
             return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
         }
