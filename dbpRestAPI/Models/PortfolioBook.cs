@@ -17,6 +17,6 @@ namespace dbpRestAPI.Models
         public int Order { get; set; }
         public string Category { get; set; }
         public bool IsActive { get; set; }
-        List<PortfolioItem> Items { get; set; }
+        public List<PortfolioItem> Items { get; set; }
     }
 }
