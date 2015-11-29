@@ -7,10 +7,9 @@ namespace dbpRestAPI.Models
 {
     public class dbpEmail
     {
-        public string FromAddress { get; set; }
-        public string Name { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-        public string Budget { get; set; }
+        public string name { get; set; }
+        public string address { get; set; }
+        public string message { get; set; }
+        public string budget { get; set; }
     }
 }

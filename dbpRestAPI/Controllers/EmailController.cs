@@ -23,19 +23,19 @@ namespace dbpRestAPI.Controllers
 
             try
             {
-                MailMessage email = new MailMessage(postedEmail.FromAddress, "info@davebrownphotography.com", "[" + postedEmail.Name + "]" + "[" + postedEmail.Subject + "]" + "Budget: " + postedEmail.Budget, postedEmail.Body);
-                email.ReplyToList.Add(new MailAddress(postedEmail.FromAddress));
+                MailMessage email = new MailMessage(postedEmail.address, "info@davebrownphotography.com", "Inquiry Email [ " + postedEmail.name + " ] Budget: " + postedEmail.budget, postedEmail.message);
+                email.ReplyToList.Add(new MailAddress(postedEmail.address));
 
-                System.Net.Mail.SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpServer"], 587);
+                SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SmtpServer"], 587);
                 smtpClient.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SmtpUser"], ConfigurationManager.AppSettings["SmtpPassword"]);
                 smtpClient.EnableSsl = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
 
                 smtpClient.Send(email);
 
-                return CreatedAtRoute("email", null, email);
+                return Created<dbpEmail>("dbpEmailController", postedEmail);
             }
-            catch
+            catch(Exception ex)
             {
                 return StatusCode(HttpStatusCode.InternalServerError);
             }
