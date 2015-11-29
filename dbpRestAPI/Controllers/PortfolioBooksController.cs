@@ -92,21 +92,26 @@ namespace dbpRestAPI.Controllers
                 db.SaveChanges();
                 db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
 
+                //Create a new temporary list to store the items.
                 List<PortfolioItem> tempPortfolioItems = new List<PortfolioItem>();
                 foreach (var item in portfolioBook.Items)
                 {
                     tempPortfolioItems.Add(item);
                 }
 
+                //Go through the temporary list, figuring out if we need to add 
+                //or update the item.
                 foreach (var item in tempPortfolioItems)
                 {
                     var portItemToDelete = db.PortfolioItems.Where(t => t.Id == item.Id).FirstOrDefault();
+                    //If we found it in the database we need to update it.
                     if (portItemToDelete != null)
                     {
                         //update case
                         db.PortfolioItems.Attach(item);
                         db.Entry(portItemToDelete).State = EntityState.Modified;
                     }
+                    //Otherwise we're going to add it.
                     else
                     {
                         //adding

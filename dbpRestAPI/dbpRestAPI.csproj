@@ -184,6 +184,7 @@
     <Compile Include="Controllers\Base\dbpBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PortfolioBooksController.cs" />
+    <Compile Include="Controllers\PortfolioItemsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataLayer\dbpDatabaseContext.cs" />
     <Compile Include="Global.asax.cs">
