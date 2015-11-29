@@ -138,9 +138,10 @@ namespace dbpRestAPI.Controllers
             }
 
             db.PortfolioBooks.Add(portfolioBook);
-            db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
+            //Whenever we're adding there aren't any new items to load.
+            //db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
 
-            return CreatedAtRoute("DefaultApi", new { Id = portfolioBook.Id }, portfolioBook);
+            return CreatedAtRoute("PortfolioBooks", new { Id = portfolioBook.Id }, portfolioBook);
         }
 
         // DELETE: api/PortfolioBooks/5
