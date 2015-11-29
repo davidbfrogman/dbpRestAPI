@@ -18,11 +18,11 @@ namespace dbpRestAPI.DataLayer
             //The line that's commented out will most likely be used for migrations.
             //That's because the migrations won't have a HttpContext.Current, so you get a null ref exception.  I still want to keep it relative pathed though
             //so it's easy when I deploy the database
-            //this.Database.Connection.ConnectionString = "DataSource = " + HttpContext.Current.Server.MapPath("~/App_Data/DBPSqlCompact.sdf");
+            this.Database.Connection.ConnectionString = "DataSource = " + HttpContext.Current.Server.MapPath("~/App_Data/DBPSqlCompact.sdf");
             //This is the location of the database on my work laptop, but will probably be different on different machines.
             //C:\Users\Asus\Documents\Visual Studio 2015\Projects\dbpRestAPI\dbpRestAPI\App_Data
             //C:\dbpRestAPI\dbpRestAPI\App_Data
-            this.Database.Connection.ConnectionString = @"DataSource = C:\Users\Asus\Documents\Visual Studio 2015\Projects\dbpRestAPI\dbpRestAPI\App_Data\DBPSqlCompact.sdf";
+            //this.Database.Connection.ConnectionString = @"DataSource = C:\Users\Asus\Documents\Visual Studio 2015\Projects\dbpRestAPI\dbpRestAPI\App_Data\DBPSqlCompact.sdf";
         }
 
         public static dbpDatabaseContext Create()
