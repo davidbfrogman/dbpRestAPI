@@ -19,40 +19,13 @@ namespace dbpRestAPI.Controllers
         // GET: api/PortfolioBooks
         public IQueryable<PortfolioBook> GetPortfolioBooks()
         {
-            //Adding some seed data
-            //List<PortfolioBook> portfolios = new List<PortfolioBook>() {
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Antoinette",
-            //        Description = "I had a blast shooting these",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/_DSC1141.jpg",
-            //        Order = 2,
-            //        Items = new List<PortfolioItem>()
-            //        {
-            //            new PortfolioItem()
-            //            {
-            //                AltText = "This is some alt text",
-            //                Order = 1,
-            //                ImageURL = "DSC_123"
-            //            }
-            //        }
-
-            //    },
-            //    new PortfolioBook()
-            //    {
-            //        Title = "Savage",
-            //        Description = "Savage was super nice",
-            //        ImageThumbnailURL = "http://www.davebrownphotography.com/Images/Fashion/01ABDSC9151.jpg",
-            //        Order = 3
-            //    }
-            //};
-
-            //foreach (var book in portfolios)
-            //{
-            //    db.PortfolioBooks.Add(book);
-            //}
-
             return db.PortfolioBooks.Include(pb => pb.Items).OrderBy(book => book.Id);
+        }
+
+        [Route("api/GetPortfolioBooksForDisplay")]
+        public IQueryable<PortfolioBook> GetPortfolioBooksForDisplay()
+        {
+            return db.PortfolioBooks.Where(book=> book.IsActive == true).Include(pb => pb.Items).OrderBy(book => book.Order);
         }
 
         // GET: api/PortfolioBooks/5
