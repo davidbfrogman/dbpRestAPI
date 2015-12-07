@@ -114,7 +114,7 @@ namespace dbpRestAPI.Controllers
             //Whenever we're adding there aren't any new items to load.
             //db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
 
-            return CreatedAtRoute("PortfolioBooks", new { Id = portfolioBook.Id }, portfolioBook);
+            return StatusCode(HttpStatusCode.Accepted);
         }
 
         // DELETE: api/PortfolioBooks/5
