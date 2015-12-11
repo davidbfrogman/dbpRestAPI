@@ -19,7 +19,12 @@ namespace dbpRestAPI.Controllers
         // GET: api/PortfolioBooks
         public IQueryable<PortfolioBook> GetPortfolioBooks()
         {
-            return db.PortfolioBooks.Include(pb => pb.Items).OrderBy(book => book.Id);
+            IQueryable<PortfolioBook> books =  db.PortfolioBooks.Include(pb => pb.Items).OrderBy(book => book.Id);
+            foreach (var book in books)
+            {
+                book.Items = book.Items.OrderBy(item => item.Order).ToList();
+            }
+            return books;
         }
 
         [Route("api/GetPortfolioBooksForDisplay")]
@@ -40,6 +45,8 @@ namespace dbpRestAPI.Controllers
             {
                 return NotFound();
             }
+
+            portfolioBook.Items = portfolioBook.Items.OrderBy(item => item.Order).ToList();
 
             return Ok(portfolioBook);
         }
