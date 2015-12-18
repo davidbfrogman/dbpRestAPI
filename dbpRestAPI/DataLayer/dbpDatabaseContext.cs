@@ -22,7 +22,7 @@ namespace dbpRestAPI.DataLayer
             //This is the location of the database on my work laptop, but will probably be different on different machines.
             //C:\Users\Asus\Documents\Visual Studio 2015\Projects\dbpRestAPI\dbpRestAPI\App_Data
             //C:\dbpRestAPI\dbpRestAPI\App_Data
-            //this.Database.Connection.ConnectionString = @"DataSource = C:\Users\Asus\Documents\Visual Studio 2015\Projects\dbpRestAPI\dbpRestAPI\App_Data\DBPSqlCompact.sdf";
+            //this.Database.Connection.ConnectionString = @"DataSource = C:\dbpRestAPI\dbpRestAPI\App_Data\DBPSqlCompact.sdf";
         }
 
         public static dbpDatabaseContext Create()

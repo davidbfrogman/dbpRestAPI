@@ -14,5 +14,7 @@ namespace dbpRestAPI.Models
         public string AltText { get; set; }
         public string ImageURL { get; set; }
         public int Order { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }
