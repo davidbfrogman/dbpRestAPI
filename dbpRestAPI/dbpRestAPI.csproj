@@ -199,6 +199,7 @@
     <Compile Include="Models\dbpEmail.cs" />
     <Compile Include="Models\dbpRestAPIContext.cs" />
     <Compile Include="Models\PortfolioBook.cs" />
+    <Compile Include="Models\PortfolioCategory.cs" />
     <Compile Include="Models\PortfolioItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

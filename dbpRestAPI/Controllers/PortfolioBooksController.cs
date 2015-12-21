@@ -27,6 +27,30 @@ namespace dbpRestAPI.Controllers
             return books;
         }
 
+        [Route("api/GetPortfolioCategories")]
+        public List<PortfolioCategory> GetPortfolioCategories()
+        {
+            List<PortfolioCategory> categories = new List<PortfolioCategory>();
+            IQueryable<PortfolioBook> books = db.PortfolioBooks;
+
+            categories.Add(new PortfolioCategory() { Name = "All", Count = books.Count(), Filter = "*", Order=0 });
+
+            foreach (var book in books)
+            {
+                //if we already have a category created, then we need to add to the count.
+                if (categories.Where(cc => cc.Name == book.Category).Count() > 0)
+                {
+                    categories.Where(cc => cc.Name == book.Category).First().Count++;
+                }
+                else
+                {
+                    categories.Add(new PortfolioCategory() { Name = book.Category, Count = 1, Filter = "." + book.Category });
+                }
+            }
+            
+            return categories;
+        }
+
         [Route("api/GetPortfolioBooksForDisplay")]
         public IQueryable<PortfolioBook> GetPortfolioBooksForDisplay()
         {
