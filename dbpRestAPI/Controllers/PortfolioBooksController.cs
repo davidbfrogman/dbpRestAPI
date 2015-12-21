@@ -44,7 +44,7 @@ namespace dbpRestAPI.Controllers
                 }
                 else
                 {
-                    categories.Add(new PortfolioCategory() { Name = book.Category, Count = 1, Filter = "." + book.Category });
+                    categories.Add(new PortfolioCategory() { Name = book.Category, Count = 1, Filter =  book.Category.Replace(" ", "") });
                 }
             }
             
@@ -123,7 +123,7 @@ namespace dbpRestAPI.Controllers
                     }
                 }
                 db.SaveChanges();
-                return StatusCode(HttpStatusCode.Accepted);
+                return Ok<PortfolioBook>(portfolioBook);
             }
             catch (Exception ex)
             {
@@ -142,10 +142,9 @@ namespace dbpRestAPI.Controllers
             }
 
             db.PortfolioBooks.Add(portfolioBook);
-            //Whenever we're adding there aren't any new items to load.
-            //db.Entry(portfolioBook).Collection(pb => pb.Items).Load();
+            db.SaveChanges();
 
-            return StatusCode(HttpStatusCode.Accepted);
+            return Ok<PortfolioBook>(portfolioBook);
         }
 
         // DELETE: api/PortfolioBooks/5
