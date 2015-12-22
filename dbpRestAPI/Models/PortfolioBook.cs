@@ -20,5 +20,6 @@ namespace dbpRestAPI.Models
         public List<PortfolioItem> Items { get; set; }
         public string Class { get; set; }
         public string Subtitle { get; set; }
+        public bool IsSingle { get; set; }
     }
 }
