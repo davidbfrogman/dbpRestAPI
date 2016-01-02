@@ -232,6 +232,7 @@
     <Compile Include="Models\dbpRestAPIContext.cs" />
     <Compile Include="Models\InstagramMediaOptimized.cs" />
     <Compile Include="Models\InstagramObjectModel.cs" />
+    <Compile Include="Models\InstagramUserDataOptimized.cs" />
     <Compile Include="Models\PortfolioBook.cs" />
     <Compile Include="Models\PortfolioCategory.cs" />
     <Compile Include="Models\PortfolioItem.cs" />

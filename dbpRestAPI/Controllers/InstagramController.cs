@@ -20,13 +20,9 @@ namespace dbpRestAPI.Controllers
         // GET: api/Instagram
         public List<InstagramMediaOptimized> Get()
         {
-
-            //First off we get some details about the user so we can send back some of the counts.
             WebClient webClient = new WebClient();
-            var response = webClient.DownloadString("https://api.instagram.com/v1/users/self/?access_token=" + ConfigurationManager.AppSettings["access_token"]);
-            UserRootObject deserializedObject = JsonConvert.DeserializeObject<UserRootObject>(response);
 
-            var recentMedia = webClient.DownloadString("https://api.instagram.com/v1/users/self/media/recent/?access_token=" + ConfigurationManager.AppSettings["access_token"]);
+            var recentMedia = webClient.DownloadString("https://api.instagram.com/v1/users/self/media/recent/?count=12&access_token=" + ConfigurationManager.AppSettings["access_token"]);
             MediaRootObject recentMediaDeserializedObject = JsonConvert.DeserializeObject<MediaRootObject>(recentMedia);
 
             List<InstagramMediaOptimized> recentPosts = new List<InstagramMediaOptimized>();
@@ -43,17 +39,49 @@ namespace dbpRestAPI.Controllers
             return recentPosts;
         }
 
+        public InstagramUserDataOptimized GetInstagramUserData()
+        {
+            WebClient webClient = new WebClient();
+            var response = webClient.DownloadString("https://api.instagram.com/v1/users/self/?access_token=" + ConfigurationManager.AppSettings["access_token"]);
+            UserRootObject deserializedObject = JsonConvert.DeserializeObject<UserRootObject>(response);
+
+            return new InstagramUserDataOptimized()
+            {
+                FollowersCount = deserializedObject.data.counts.followed_by.ToString(),
+                PostsCount = deserializedObject.data.counts.media.ToString(),
+                ProfileImageUrl = deserializedObject.data.profile_picture,
+                Username = deserializedObject.data.username,
+                FollowingCount = deserializedObject.data.counts.follows.ToString()
+            };
+        }
+
+
         [Route("api/GetCachedInstagramMedia")]
         public List<InstagramMediaOptimized> GetCachedInstagramMedia()
         {
             //Even just by accessing this count it will startup and return entries.
-            if (BlogEntryCache.CurrentBlogPosts == null)
+            if (InstagramCache.CurrentInstagramPosts == null)
             {
                 //Cold start
-                return Get();
+                return this.Get();
             }
+
             return InstagramCache.CurrentInstagramPosts;
         }
+
+        [Route("api/GetCachedInstagramUserData")]
+        public InstagramUserDataOptimized GetCachedInstagramUserData()
+        {
+            //Even just by accessing this count it will startup and return entries.
+            if (InstagramCache.CurrentUserData == null)
+            {
+                //Cold start
+                return this.GetInstagramUserData();
+            }
+
+            return InstagramCache.CurrentUserData;
+        }
+
 
         [Route("api/refreshInstagramCache")]
         public string GetRefreshInstagramCache()

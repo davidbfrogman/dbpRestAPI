@@ -54,6 +54,7 @@ namespace dbpRestAPI.Controllers
         [Route("api/GetPortfolioBooksForDisplay")]
         public IQueryable<PortfolioBook> GetPortfolioBooksForDisplay()
         {
+            //.Where(book => book.Id > 175)
             return db.PortfolioBooks.Where(book=> book.IsActive == true).Include(pb => pb.Items).OrderBy(book => book.Order);
         }
 

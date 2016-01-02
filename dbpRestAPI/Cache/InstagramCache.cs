@@ -11,6 +11,7 @@ namespace dbpRestAPI.Cache
     public static class InstagramCache
     {
         public static List<InstagramMediaOptimized> CurrentInstagramPosts { get; set; }
+        public static InstagramUserDataOptimized CurrentUserData { get; set; }
 
         static InstagramCache()
         {
@@ -22,6 +23,7 @@ namespace dbpRestAPI.Cache
             InstagramController controller = new InstagramController();
 
             CurrentInstagramPosts = controller.Get();
+            CurrentUserData = controller.GetInstagramUserData();
         }
     }
 }
