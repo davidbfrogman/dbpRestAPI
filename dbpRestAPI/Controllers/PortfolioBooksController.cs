@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using dbpRestAPI.Models;
 using dbpRestAPI.Controllers.Base;
 using dbpRestAPI.DataLayer;
+using dbpRestAPI.Cache;
 
 namespace dbpRestAPI.Controllers
 {
@@ -56,6 +57,26 @@ namespace dbpRestAPI.Controllers
         {
             //.Where(book => book.Id > 175)
             return db.PortfolioBooks.Where(book=> book.IsActive == true).Include(pb => pb.Items).OrderBy(book => book.Order);
+        }
+
+        [Route("api/GetCachedPortfolioBooks")]
+        public List<PortfolioBook> GetCachedPortfolioBooks()
+        {
+            //Even just by accessing this count it will startup and return entries.
+            if (PortfolioCache.CurrentPortfolioBooks == null)
+            {
+                //Cold start
+                return this.GetPortfolioBooksForDisplay().ToList();
+            }
+
+            return PortfolioCache.CurrentPortfolioBooks;
+        }
+
+        [Route("api/refreshPortfolioCache")]
+        public string GetRefreshPortfolioCache()
+        {
+            PortfolioCache.CurrentPortfolioBooks = this.GetPortfolioBooksForDisplay().ToList();
+            return "Successfully updated the portfolio cache";
         }
 
         // GET: api/PortfolioBooks/5
