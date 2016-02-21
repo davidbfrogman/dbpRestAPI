@@ -52,6 +52,19 @@ namespace dbpRestAPI.Controllers
             return categories;
         }
 
+        [Route("api/GetCachedPortfolioCategories")]
+        public List<PortfolioCategory> GetCachedPortfolioCategories()
+        {
+            //Even just by accessing this count it will startup and return entries.
+            if (PortfolioCache.CurrentPortfolioCategories == null)
+            {
+                //Cold start
+                return this.GetPortfolioCategories();
+            }
+
+            return PortfolioCache.CurrentPortfolioCategories;
+        }
+
         [Route("api/GetPortfolioBooksForDisplay")]
         public IQueryable<PortfolioBook> GetPortfolioBooksForDisplay()
         {

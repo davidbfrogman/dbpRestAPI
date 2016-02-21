@@ -11,6 +11,7 @@ namespace dbpRestAPI.Cache
     public static class PortfolioCache
     {
         public static List<PortfolioBook> CurrentPortfolioBooks { get; set; }
+        public static List<PortfolioCategory> CurrentPortfolioCategories { get; set; }
 
         static PortfolioCache()
         {
@@ -22,6 +23,7 @@ namespace dbpRestAPI.Cache
             PortfolioBooksController controller = new PortfolioBooksController();
 
             CurrentPortfolioBooks = controller.GetPortfolioBooksForDisplay().ToList();
+            CurrentPortfolioCategories = controller.GetPortfolioCategories().ToList();
         }
     }
 }
