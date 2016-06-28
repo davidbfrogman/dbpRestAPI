@@ -18,6 +18,7 @@ namespace dbpRestAPI.Controllers
     public class InstagramController : ApiController
     {
         // GET: api/Instagram
+        [Route("api/GetInstagramMedia")]
         public List<InstagramMediaOptimized> Get()
         {
             WebClient webClient = new WebClient();
@@ -39,6 +40,7 @@ namespace dbpRestAPI.Controllers
             return recentPosts;
         }
 
+        [Route("api/GetInstagramUserData")]
         public InstagramUserDataOptimized GetInstagramUserData()
         {
             WebClient webClient = new WebClient();
@@ -87,7 +89,7 @@ namespace dbpRestAPI.Controllers
         public string GetRefreshInstagramCache()
         {
             InstagramCache.CurrentInstagramPosts = this.Get();
-            return "Successfully updated the blog cache";
+            return "Successfully updated the instagram cache";
         }
     }
 }
